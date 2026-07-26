@@ -213,9 +213,7 @@ for (const [label, p] of [
 let pgTested = false;
 if (parsedMig && failures === 0) {
   try {
-    const { default: postgres } = (await import("postgres")) as {
-      default: (url: string, opts?: Record<string, unknown>) => never;
-    };
+    const { default: postgres } = await import("postgres");
     for (const [label, p, raw] of [
       ["MIGRATION_URL", parsedMig, migRaw],
       ["DATABASE_URL ", parsedDb, dbRaw],
@@ -227,10 +225,7 @@ if (parsedMig && failures === 0) {
         connect_timeout: 10,
         // Transaction pooling cannot keep prepared statements around.
         prepare: p.mode !== "transaction",
-      }) as unknown as {
-        unsafe: (q: string) => Promise<Array<Record<string, unknown>>>;
-        end: () => Promise<void>;
-      };
+      });
       try {
         const rows = await sql.unsafe(
           "select current_user, current_database(), split_part(version(),' on ',1) as version",
