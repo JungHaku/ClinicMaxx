@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+@theme {
+  --color-canvas: #f4f7f7;
+  --color-surface: #ffffff;
+  --color-line: #e2eae9;
+  --color-line-soft: #eef3f2;
+
+  --color-ink-900: #0b2624;
+  --color-ink-700: #1c3d3a;
+  --color-ink-500: #4a6b68;
+  --color-ink-400: #6c8886;
+  --color-ink-300: #93a9a7;
+
+  --color-brand-50: #f0faf8;
+  --color-brand-100: #d8f2ee;
+  --color-brand-200: #b0e5dd;
+  --color-brand-300: #7ed0c6;
+  --color-brand-400: #46b3a7;
+  --color-brand-500: #23968b;
+  --color-brand-600: #157a72;
+  --color-brand-700: #12615c;
+  --color-brand-800: #124d4a;
+  --color-brand-900: #0f3e3c;
+
+  --font-sans: ui-sans-serif, -apple-system, "SF Pro Text", "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+
+  --shadow-card: 0 1px 2px rgb(11 38 36 / 0.05), 0 1px 3px rgb(11 38 36 / 0.04);
+  --shadow-pop: 0 10px 30px -8px rgb(11 38 36 / 0.22), 0 2px 8px rgb(11 38 36 / 0.08);
+}
+
+* {
+  border-color: var(--color-line);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink-900);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-brand-200);
+}
+
+/* Scrollbars that don't shout inside dense calendar columns. */
+.thin-scroll::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+.thin-scroll::-webkit-scrollbar-thumb {
+  background: #cbd9d7;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+.thin-scroll::-webkit-scrollbar-thumb:hover {
+  background: #a9bfbc;
+  background-clip: content-box;
+}
+.thin-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+input,
+select,
+textarea,
+button {
+  font: inherit;
+}
+
+/* Utility used by the schedule grid so hour lines stay crisp at any zoom. */
+.hairline-b {
+  box-shadow: inset 0 -1px 0 var(--color-line-soft);
+}
+
+@keyframes cmx-rise {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise {
+  animation: cmx-rise 0.18s ease-out both;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+  }
+}

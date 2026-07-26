@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.55" y2="1">
+      <stop offset="0" stop-color="#1a8a80"/>
+      <stop offset="0.55" stop-color="#12615c"/>
+      <stop offset="1" stop-color="#0c3230"/>
+    </linearGradient>
+    <linearGradient id="myo" x1="0.15" y1="0.05" x2="0.8" y2="1">
+      <stop offset="0" stop-color="#f0879a"/>
+      <stop offset="0.5" stop-color="#e05c74"/>
+      <stop offset="1" stop-color="#bf3d56"/>
+    </linearGradient>
+    <linearGradient id="lv" x1="0.2" y1="0" x2="0.9" y2="1">
+      <stop offset="0" stop-color="#d24d66"/>
+      <stop offset="1" stop-color="#a33047"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1024" height="1024" rx="230" fill="url(#bg)"/>
+
+  <!-- The C is drawn behind the organ so the great vessels cross its band and the
+       two forms interlock into one mark rather than stacking. Open to the right. -->
+  <path d="M746 262 A348 348 0 1 0 746 762"
+        fill="none" stroke="#f2fbf9" stroke-width="90" stroke-linecap="round"/>
+
+  <!-- Anterior view: apex points down and to our right, the aortic arch sweeps
+       right before descending, the superior vena cava enters on our left. -->
+  <g transform="translate(146,176) scale(0.735)">
+
+    <!-- ==== vessels behind the muscle ==== -->
+    <path d="M470 452 L470 292 C470 196 566 168 636 196 C696 220 700 286 700 330 L700 448"
+          fill="none" stroke="#a6cfd8" stroke-width="88" stroke-linecap="round"/>
+    <g fill="none" stroke="#a6cfd8" stroke-width="33" stroke-linecap="round">
+      <path d="M534 176 L520 74"/>
+      <path d="M600 166 L604 66"/>
+      <path d="M660 194 L688 104"/>
+    </g>
+    <path d="M330 430 C330 306 322 246 316 180"
+          fill="none" stroke="#7ea8c4" stroke-width="76" stroke-linecap="round"/>
+
+    <!-- ==== ventricular mass ==== -->
+    <path d="M296 470
+             C266 386 318 330 404 330
+             C520 330 664 356 726 420
+             C776 472 782 574 742 668
+             C700 766 616 848 546 882
+             C500 904 470 892 480 848
+             C512 706 470 596 386 546
+             C336 516 310 502 296 470 Z"
+          fill="url(#myo)"/>
+
+    <!-- left ventricle: thicker=walled, a soft tonal shift rather than a hard seam -->
+    <path d="M512 448
+             C596 452 682 452 726 420
+             C776 472 782 574 742 668
+             C700 766 616 848 546 882
+             C500 904 470 892 480 848
+             C524 700 540 556 512 448 Z"
+          fill="url(#lv)" opacity="0.7"/>
+
+    <!-- ==== atria ==== -->
+    <path d="M320 462 C252 452 232 384 274 350 C330 306 414 328 424 388 C433 442 380 472 320 462 Z"
+          fill="#ef8296"/>
+    <path d="M706 442 C760 428 792 462 780 504 C768 546 712 552 686 518 C670 496 684 452 706 442 Z"
+          fill="#e9758b"/>
+
+    <!-- ==== vessels in front ==== -->
+    <path d="M604 460 C604 336 578 264 528 232"
+          fill="none" stroke="#6f9fbe" stroke-width="82" stroke-linecap="round"/>
+    <path d="M528 232 C458 208 400 232 372 282"
+          fill="none" stroke="#6f9fbe" stroke-width="44" stroke-linecap="round"/>
+
+    <!-- ==== coronary arteries on the surface ==== -->
+    <path d="M596 500 C566 606 552 736 528 856"
+          fill="none" stroke="#ffdbe1" stroke-width="20" stroke-linecap="round" opacity="0.8"/>
+    <path d="M596 500 C520 536 424 530 360 490"
+          fill="none" stroke="#ffdbe1" stroke-width="17" stroke-linecap="round" opacity="0.65"/>
+    <path d="M572 612 C640 638 690 624 722 588"
+          fill="none" stroke="#ffdbe1" stroke-width="13" stroke-linecap="round" opacity="0.45"/>
+  </g>
+</svg>
