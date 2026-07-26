@@ -13,21 +13,25 @@ set -euo pipefail
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DEST_DIR="${1:-$HOME/Desktop}"
 APP="$DEST_DIR/ClinicMaxx.app"
-SVG="$PROJECT_DIR/assets/icon.svg"
 ICNS_OUT="$PROJECT_DIR/assets/ClinicMaxx.icns"
 
-[ -f "$SVG" ] || { echo "Missing $SVG" >&2; exit 1; }
+# The icon master may be a PNG (exported brand art) or an SVG. PNG wins if both
+# are present, since that is the higher-fidelity source when one exists.
+if   [ -f "$PROJECT_DIR/assets/icon.png" ]; then SOURCE="$PROJECT_DIR/assets/icon.png"
+elif [ -f "$PROJECT_DIR/assets/icon.svg" ]; then SOURCE="$PROJECT_DIR/assets/icon.svg"
+else echo "No assets/icon.png or assets/icon.svg to build from" >&2; exit 1
+fi
 
-# --- 1. rasterise the SVG into a full .iconset -----------------------------
-# macOS wants every size from 16 to 1024, at 1x and 2x. sips reads SVG directly,
-# so there is no third-party dependency here.
+# --- 1. rasterise the master into a full .iconset --------------------------
+# macOS wants every size from 16 to 1024, at 1x and 2x. sips reads both PNG and
+# SVG, so there is no third-party dependency here.
 WORK="$(mktemp -d)"
 trap 'rm -rf "$WORK"' EXIT
 ICONSET="$WORK/ClinicMaxx.iconset"
 mkdir -p "$ICONSET"
 
-echo "Rendering icon…"
-sips -s format png -z 1024 1024 "$SVG" --out "$WORK/master.png" >/dev/null 2>&1
+echo "Rendering icon from $(basename "$SOURCE")…"
+sips -s format png -z 1024 1024 "$SOURCE" --out "$WORK/master.png" >/dev/null 2>&1
 
 emit() { # emit <pixels> <filename>
   sips -s format png -z "$1" "$1" "$WORK/master.png" --out "$ICONSET/$2" >/dev/null 2>&1

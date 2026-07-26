@@ -81,16 +81,17 @@ export function Sidebar({
       className="flex items-center gap-2.5 px-5 pt-5 pb-6"
       onClick={() => setMobileOpen(false)}
     >
-      <span className="flex size-9 items-center justify-center rounded-xl bg-brand-400/20 ring-1 ring-brand-300/30">
-        <svg viewBox="0 0 24 24" className="size-5 text-brand-200" aria-hidden>
-          <path
-            d="M12 3.5c-3.6 0-6.5 2.6-6.5 6 0 2.6 1.6 4.6 3.4 6.3 1 .9 1.7 1.9 2 3 .1.5.6.9 1.1.9s1-.4 1.1-.9c.3-1.1 1-2.1 2-3 1.8-1.7 3.4-3.7 3.4-6.3 0-3.4-2.9-6-6.5-6Z"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.6"
-          />
-          <path d="M12 7v5M9.5 9.5h5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-        </svg>
+      {/* The brand mark sits on a light chip so its colours keep their contrast
+          against the dark rail. */}
+      <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-white/95 ring-1 ring-white/20">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/logomark.png"
+          alt=""
+          width={28}
+          height={25}
+          className="h-auto w-7"
+        />
       </span>
       <span className="min-w-0">
         <span className="block text-[15px] leading-tight font-semibold tracking-tight text-white">

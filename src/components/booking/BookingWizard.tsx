@@ -466,21 +466,18 @@ function Shell({ clinic, children }: { clinic: Clinic; children: React.ReactNode
     <div className="min-h-dvh bg-canvas">
       <header className="border-b border-line bg-surface">
         <div className="mx-auto flex max-w-3xl items-center gap-3 px-5 py-5">
-          <span className="flex size-10 items-center justify-center rounded-xl bg-brand-600">
-            <svg viewBox="0 0 24 24" className="size-5.5 text-brand-100" aria-hidden>
-              <path
-                d="M12 3.5c-3.6 0-6.5 2.6-6.5 6 0 2.6 1.6 4.6 3.4 6.3 1 .9 1.7 1.9 2 3 .1.5.6.9 1.1.9s1-.4 1.1-.9c.3-1.1 1-2.1 2-3 1.8-1.7 3.4-3.7 3.4-6.3 0-3.4-2.9-6-6.5-6Z"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
-              />
-              <path d="M12 7v5M9.5 9.5h5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-            </svg>
-          </span>
-          <div>
-            <p className="text-[17px] leading-tight font-semibold tracking-tight text-ink-900">
-              {clinic.name}
-            </p>
+          {/* The public page is on a light background, so it can carry the full
+              lockup — wordmark and all. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/logo.png"
+            alt="ClinicMaxx — Allied Health Practice Management"
+            width={260}
+            height={67}
+            className="h-auto w-[220px] shrink-0 sm:w-[260px]"
+          />
+          <div className="hidden border-l border-line pl-4 md:block">
+            <p className="text-[14px] leading-tight font-semibold text-ink-900">{clinic.name}</p>
             <p className="text-[12.5px] text-ink-400">{clinic.tagline}</p>
           </div>
           <a
