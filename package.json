@@ -2,7 +2,7 @@
   "name": "clinicmaxx",
   "version": "1.0.0",
   "private": true,
-  "description": "ClinicMaxx \u2014 practice management and clinic CRM for allied health teams",
+  "description": "ClinicMaxx — practice management and clinic CRM for allied health teams",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -12,7 +12,8 @@
     "db:seed": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/seed.ts",
     "db:reset": "rm -f data/clinicmaxx.db && npm run db:seed",
     "db:check": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-db.ts",
-    "db:setup": "bash scripts/setup-db.sh"
+    "db:setup": "bash scripts/setup-db.sh",
+    "db:import": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/import-jane.ts"
   },
   "dependencies": {
     "clsx": "^2.1.1",
