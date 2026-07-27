@@ -11,3 +11,14 @@ data/*.db-shm
 next-env.d.ts
 .env*.local
 assets/ClinicMaxx.icns
+
+# Clinic data exports. A real Jane appointment export carries patient names,
+# GUIDs, chart status and visit notes, and this repository is public — so the
+# contents are ignored outright rather than case by case. The README stays
+# tracked so the folder survives a fresh clone and explains itself.
+csvs/*
+!csvs/README.md
+
+# Backstop for exports that land somewhere other than csvs/. If you ever need
+# to commit a genuine fixture, force it: git add -f path/to/fixture.csv
+*.csv
