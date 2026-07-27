@@ -27,8 +27,14 @@ function open(): DatabaseSync {
   db.exec("PRAGMA foreign_keys = ON;");
   db.exec(SCHEMA);
 
+  // The demo seed invents 480 patients. That is exactly right for a throwaway
+  // database and catastrophic for a real one — fabricated people must never end
+  // up interleaved with a live clinical record. Any database holding real data
+  // is opened with CLINICMAXX_NO_SEED=1 so it stays empty until a real import
+  // fills it.
+  const seedingDisabled = process.env.CLINICMAXX_NO_SEED === "1";
   const seeded = db.prepare("SELECT COUNT(*) AS n FROM clinic").get() as { n: number };
-  if (fresh || seeded.n === 0) seed(db);
+  if (!seedingDisabled && (fresh || seeded.n === 0)) seed(db);
   return db;
 }
 
