@@ -655,11 +655,25 @@ export async function toggleTask(_prev: unknown, fd: FormData): Promise<ActionRe
  * ------------------------------------------------------------------ */
 
 export async function saveClinic(_prev: unknown, fd: FormData): Promise<ActionResult> {
+  const name = str(fd, "name");
+  if (!name) return { ok: false, error: "The clinic needs a name." };
+
+  // Upsert rather than update: a fresh database has no clinic row, and a plain
+  // UPDATE would match nothing while still reporting success.
   run(
-    `UPDATE clinic SET name=?, tagline=?, email=?, phone=?, website=?, timezone=?,
-       booking_lead_hours=?, cancellation_hours=?, cancellation_fee_cents=?, invoice_prefix=? WHERE id=1`,
-    str(fd, "name"), str(fd, "tagline"), str(fd, "email"), str(fd, "phone"),
-    str(fd, "website"), str(fd, "timezone"),
+    `INSERT INTO clinic (id,name,tagline,email,phone,website,timezone,currency,
+       booking_lead_hours,cancellation_hours,cancellation_fee_cents,default_tax_bps,
+       invoice_prefix,next_invoice_seq)
+     VALUES (1,?,?,?,?,?,?,'CAD',?,?,?,0,?,1001)
+     ON CONFLICT(id) DO UPDATE SET
+       name=excluded.name, tagline=excluded.tagline, email=excluded.email,
+       phone=excluded.phone, website=excluded.website, timezone=excluded.timezone,
+       booking_lead_hours=excluded.booking_lead_hours,
+       cancellation_hours=excluded.cancellation_hours,
+       cancellation_fee_cents=excluded.cancellation_fee_cents,
+       invoice_prefix=excluded.invoice_prefix`,
+    name, str(fd, "tagline"), str(fd, "email"), str(fd, "phone"),
+    str(fd, "website"), str(fd, "timezone") || "America/Vancouver",
     num(fd, "booking_lead_hours"), num(fd, "cancellation_hours"),
     cents(fd, "cancellation_fee"), str(fd, "invoice_prefix") || "CMX",
   );

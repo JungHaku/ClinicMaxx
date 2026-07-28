@@ -27,8 +27,39 @@ import type {
 
 /* ------------------------------------------------------------ clinic */
 
+/**
+ * The clinic record, or a usable placeholder if the row is missing.
+ *
+ * A brand-new database has no clinic row — that is the normal starting state
+ * for a real import, not a corrupt one. The sidebar reads `clinic.name` on
+ * every route, so returning undefined here took the whole app down with a 500
+ * and no way to reach Settings and fix it. A placeholder keeps the app usable
+ * so the clinic can be filled in through the UI.
+ */
 export function getClinic(): Clinic {
-  return one<Clinic>("SELECT * FROM clinic WHERE id = 1")!;
+  const row = one<Clinic>("SELECT * FROM clinic WHERE id = 1");
+  if (row) return row;
+  return {
+    id: 1,
+    name: "Set up your clinic",
+    tagline: "",
+    email: "",
+    phone: "",
+    website: "",
+    timezone: "America/Vancouver",
+    currency: "CAD",
+    booking_lead_hours: 2,
+    cancellation_hours: 24,
+    cancellation_fee_cents: 4000,
+    default_tax_bps: 0,
+    invoice_prefix: "CMX",
+    next_invoice_seq: 1001,
+  };
+}
+
+/** False when the clinic row has never been created — a fresh database. */
+export function clinicIsConfigured(): boolean {
+  return Boolean(one<{ id: number }>("SELECT id FROM clinic WHERE id = 1"));
 }
 
 export function listLocations(): Location[] {
